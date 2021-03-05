@@ -1,0 +1,51 @@
+The refind-bin file contains rEFInd binaries and filesystem driver binaries
+for use on an EFI System Partition (ESP) or a Macintosh's OS X root
+partition. These binaries have been signed with my own Secure Boot key and
+so can be used with shim on Secure Boot systems; however, you'll have to
+enroll the key with MokManager.
+
+The refind-bin-gnuefi file is similar to refind-bin, except that the
+refind_x64.efi binary was built using GNU-EFI rather than TianoCore EDK2.
+This change helps some Arch Linux users who are running into problems
+booting some (but not all) 3.7.x and 3.8.x kernels with the stock rEFInd
+and some other tools; but this version can't launch BIOS-mode boot loaders.
+
+The refind-cd file contains a bootable CD image file; burn it to an optical
+disc and you should be able to boot rEFInd to test it without installing it
+on your hard disk. This image is more likely to work on PCs than on Macs;
+at least on some early Intel-based Macs, the CD boot process has special
+requirements that this image doesn't meet. This image includes four EFI
+filesystem drivers, as well as an open source EFI shell that's not included
+in the other packages, which can make it useful for some simple emergency
+recovery tasks on an EFI computer.
+
+The refind-flashdrive file is similar to the refind-cd file, but it's
+intended to create a bootable USB flash drive. You'll need to use the dd
+utility in Linux or OS X, or something equivalent to it, to copy the image
+file to a USB flash drive.
+
+The refind-src file contains the source code to rEFInd (both the main
+program and the EFI filesystem drivers), which you can build yourself. The
+build process is based on Linux and uses the TianoCore toolkit or the
+GNU-EFI library (for the main rEFInd program) and the TianoCore toolkit
+(for the EFI filesystem drivers). It may be possible to adapt the build
+process to work under OS X or Windows, but you're on your own if you try
+this.
+
+The binary RPM file can be installed directly on Red Hat, OpenSUSE, and
+similar RPM-based distributions. It contains binaries that are equivalent
+to those of the binary zip file, although they were built separately. Upon
+installation, it copies the files to the ESP and registers rEFInd as the
+default boot loader with the ESP, assuming the computer was booted in EFI
+mode.
+
+The binary Debian package is equivalent to the binary RPM file and can be
+used in much the same way on Debian, Ubuntu, Mint, and other Linux
+distributions that employ Debian packages.
+
+The source RPM file might be buildable directly on an RPM-based
+distribution, but distribution-specific details of GNU-EFI and TianoCore
+file locations may prevent this from working. You can tweak the refind.spec
+file (included in the refind-src file) and/or the various Makefiles (as
+described in the BUILDING.txt file in the refind-src file) as necessary for
+your platform.
